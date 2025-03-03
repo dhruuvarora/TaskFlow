@@ -1,27 +1,953 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="dist/index.js" defer type="module"></script>
+  <title>Document</title>
+  <style>
+    #list{
+      list-style:none;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <ul id="list"></ul>
+  <form id="new-task-form">
+    <input type="text" id="new-task-title">
+    <button type="submit">
+        Add
+    </button>
+  </form>
+</body>
+</html> -->
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Web site created using create-snowpack-app" />
-    <link rel="stylesheet" type="text/css" href="/index.css" />
-    <title>Snowpack App</title>
-  </head>
-  <body>
-    <img id="img" src="/logo.svg" />
-    <canvas id="canvas"></canvas>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script type="module" src="/dist/index.js"></script>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+    }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background: #fff;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    <form id="new-task-form">
+      <input type="text" id="new-task-title" placeholder="Enter a new task">
+      <button type="submit">Add</button>
+    </form>
+    <ul id="list"></ul>
+  </div>
+</body>
+</html> -->
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="dist/index.js" defer type="module"></script>
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #list {
+      list-style: none;
+      padding: 0;
+      width: 300px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+    }
+
+    .task-checkbox {
+      margin-right: 10px;
+    }
+
+    .task-label {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <form id="new-task-form">
+    <input type="text" id="new-task-title" placeholder="Enter task...">
+    <button type="submit">Add</button>
+  </form>
+  <ul id="list"></ul>
+</body>
+</html> -->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="dist/index.js" defer type="module"></script>
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+    :root {
+      /* Light Theme Variables */
+      --bg-light: #f5f7fa;
+      --sidebar-light: #e8eef4;
+      --card-light: #ffffff;
+      --text-primary-light: #2d3748;
+      --text-secondary-light: #718096;
+      --accent-light: #6366f1;
+      --border-light: #e2e8f0;
+      --tag-light: #ebf4ff;
+      
+      /* Dark Theme Variables */
+      --bg-dark: #1a202c;
+      --sidebar-dark: #171923;
+      --card-dark: #2d3748;
+      --text-primary-dark: #f7fafc;
+      --text-secondary-dark: #a0aec0;
+      --accent-dark: #7f9cf5;
+      --border-dark: #4a5568;
+      --tag-dark: #2a4365;
+      
+      /* Common Variables */
+      --success: #48bb78;
+      --danger: #f56565;
+      --warning: #ed8936;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-primary-light);
+      transition: all 0.3s ease;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-primary-dark);
+    }
+
+    .app-container {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 280px;
+      background-color: var(--sidebar-light);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      border-right: 1px solid var(--border-light);
+    }
+
+    .dark-mode .sidebar {
+      background-color: var(--sidebar-dark);
+      border-color: var(--border-dark);
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dark-mode .logo {
+      color: var(--accent-dark);
+    }
+
+    .theme-toggle {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--text-secondary-light);
+      font-size: 1.25rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--accent-light);
+    }
+
+    .dark-mode .theme-toggle {
+      color: var(--text-secondary-dark);
+    }
+
+    .dark-mode .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--accent-dark);
+    }
+
+    .nav-links {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary-light);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-link.active {
+      background-color: var(--accent-light);
+      color: white;
+    }
+
+    .dark-mode .nav-link {
+      color: var(--text-secondary-dark);
+    }
+
+    .dark-mode .nav-link.active {
+      background-color: var(--accent-dark);
+      color: white;
+    }
+
+    .nav-link:hover:not(.active) {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary-light);
+    }
+
+    .dark-mode .nav-link:hover:not(.active) {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary-dark);
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 0.875rem;
+      color: var(--text-secondary-light);
+    }
+
+    .dark-mode .sidebar-footer {
+      color: var(--text-secondary-dark);
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .task-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tasks-section {
+      background-color: var(--card-light);
+      border-radius: 1rem;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .tasks-section {
+      background-color: var(--card-dark);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 0.75rem;
+      color: var(--accent-light);
+    }
+
+    .dark-mode .section-title i {
+      color: var(--accent-dark);
+    }
+
+    .task-count {
+      margin-left: auto;
+      background-color: var(--tag-light);
+      color: var(--accent-light);
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .dark-mode .task-count {
+      background-color: var(--tag-dark);
+      color: var(--accent-dark);
+    }
+
+    .task-form {
+      display: flex;
+      margin-bottom: 1.5rem;
+    }
+
+    .task-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 0.5rem 0 0 0.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .dark-mode .task-input {
+      background-color: var(--sidebar-dark);
+      border-color: var(--border-dark);
+      color: var(--text-primary-dark);
+    }
+
+    .task-input:focus {
+      border-color: var(--accent-light);
+    }
+
+    .dark-mode .task-input:focus {
+      border-color: var(--accent-dark);
+    }
+
+    .add-btn {
+      background-color: var(--accent-light);
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .add-btn {
+      background-color: var(--accent-dark);
+    }
+
+    .add-btn:hover {
+      background-color: #5253cc;
+    }
+
+    .dark-mode .add-btn:hover {
+      background-color: #6c80d8;
+    }
+
+    .task-list {
+      list-style: none;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .task-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .task-list::-webkit-scrollbar-track {
+      background-color: var(--border-light);
+      border-radius: 10px;
+    }
+
+    .task-list::-webkit-scrollbar-thumb {
+      background-color: var(--accent-light);
+      border-radius: 10px;
+    }
+
+    .dark-mode .task-list::-webkit-scrollbar-track {
+      background-color: var(--border-dark);
+    }
+
+    .dark-mode .task-list::-webkit-scrollbar-thumb {
+      background-color: var(--accent-dark);
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.75rem;
+      background-color: var(--bg-light);
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .dark-mode .task-item {
+      background-color: var(--bg-dark);
+    }
+
+    .task-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-left-color: var(--accent-light);
+    }
+
+    .dark-mode .task-item:hover {
+      border-left-color: var(--accent-dark);
+    }
+
+    .task-checkbox-container {
+      margin-right: 0.75rem;
+    }
+
+    .task-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-light);
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .task-checkbox {
+      border-color: var(--border-dark);
+    }
+
+    .task-checkbox:checked {
+      background-color: var(--accent-light);
+      border-color: var(--accent-light);
+    }
+
+    .dark-mode .task-checkbox:checked {
+      background-color: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    .task-checkbox:checked::before {
+      content: '✓';
+      font-size: 12px;
+      color: white;
+    }
+
+    .task-content {
+      flex: 1;
+    }
+
+    .task-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .task-date {
+      font-size: 0.8rem;
+      color: var(--text-secondary-light);
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .task-date {
+      color: var(--text-secondary-dark);
+    }
+
+    .task-item.completed .task-title {
+      text-decoration: line-through;
+      color: var(--text-secondary-light);
+    }
+
+    .dark-mode .task-item.completed .task-title {
+      color: var(--text-secondary-dark);
+    }
+
+    .completed-section .task-item {
+      opacity: 0.8;
+    }
+
+    .toggle-sidebar {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-primary-light);
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .dark-mode .toggle-sidebar {
+      color: var(--text-primary-dark);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .task-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .toggle-sidebar {
+        display: block;
+      }
+
+      .task-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 5;
+        display: none;
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="overlay"></div>
+    
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fas fa-check-circle"></i>
+          <span>TaskFlow</span>
+        </div>
+        <button class="theme-toggle" title="Toggle Dark/Light Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      
+      <ul class="nav-links">
+        <li class="nav-link active">
+          <i class="fas fa-list"></i>
+          <span>All Tasks</span>
+        </li>
+        <li class="nav-link">
+          <i class="fas fa-calendar"></i>
+          <span>Today</span>
+        </li>
+        <li class="nav-link">
+          <i class="fas fa-star"></i>
+          <span>Important</span>
+        </li>
+        <li class="nav-link">
+          <i class="fas fa-check"></i>
+          <span>Completed</span>
+        </li>
+      </ul>
+      
+      <div class="sidebar-footer">
+        <p>TaskFlow &copy; 2025</p>
+      </div>
+    </aside>
+    
+    <main class="main-content">
+      <header class="header">
+        <button class="toggle-sidebar">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title">My Tasks</h1>
+      </header>
+      
+      <div class="task-container">
+        <div class="tasks-section">
+          <div class="section-title">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Active Tasks</span>
+            <div class="task-count" id="active-count">0</div>
+          </div>
+          
+          <form class="task-form" id="new-task-form">
+            <input 
+              type="text" 
+              class="task-input" 
+              id="new-task-title" 
+              placeholder="Add a new task..."
+            >
+            <button type="submit" class="add-btn">
+              <i class="fas fa-plus"></i>
+            </button>
+          </form>
+          
+          <ul class="task-list" id="list"></ul>
+        </div>
+        
+        <div class="tasks-section completed-section">
+          <div class="section-title">
+            <i class="fas fa-check-circle"></i>
+            <span>Completed Tasks</span>
+            <div class="task-count" id="completed-count">0</div>
+          </div>
+          
+          <ul class="task-list" id="completed-list"></ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // DOM Elements
+    const themeToggle = document.querySelector(".theme-toggle");
+    const themeIcon = themeToggle.querySelector("i");
+    const list = document.querySelector("#list");
+    const completedList = document.querySelector("#completed-list");
+    const form = document.querySelector("#new-task-form");
+    const input = document.querySelector("#new-task-title");
+    const activeCount = document.querySelector("#active-count");
+    const completedCount = document.querySelector("#completed-count");
+    const sidebar = document.querySelector(".sidebar");
+    const toggleSidebar = document.querySelector(".toggle-sidebar");
+    const overlay = document.querySelector(".overlay");
+    
+    // Get tasks from localStorage
+    let tasks = JSON.parse(localStorage.getItem("TASKS")) || [];
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem("THEME");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    }
+
+    // Theme Toggle
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      
+      if (document.body.classList.contains("dark-mode")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        localStorage.setItem("THEME", "dark");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        localStorage.setItem("THEME", "light");
+      }
+    });
+
+    // Mobile Sidebar Toggle
+    toggleSidebar.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    // Navigation Link Activation
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        // Remove active class from all links
+        navLinks.forEach(l => l.classList.remove("active"));
+        // Add active class to clicked link
+        link.classList.add("active");
+        
+        // Close sidebar on mobile after navigation
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove("active");
+          overlay.classList.remove("active");
+        }
+      });
+    });
+
+    // Add new task
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!input.value.trim()) return;
+
+      const task = {
+        id: Date.now(),
+        title: input.value,
+        completed: false,
+        createdAt: new Date().toLocaleString(),
+      };
+      tasks.push(task);
+      input.value = "";
+      saveTasks();
+      renderTasks();
+    });
+
+    // Render tasks
+    function renderTasks() {
+      list.innerHTML = "";
+      completedList.innerHTML = "";
+      
+      let activeTasks = 0;
+      let completedTasks = 0;
+
+      tasks.forEach((task) => {
+        const item = document.createElement("li");
+        item.classList.add("task-item");
+        if (task.completed) {
+          item.classList.add("completed");
+          completedTasks++;
+        } else {
+          activeTasks++;
+        }
+        
+        item.innerHTML = `
+          <div class="task-checkbox-container">
+            <input type="checkbox" class="task-checkbox" ${task.completed ? "checked" : ""}>
+          </div>
+          <div class="task-content">
+            <div class="task-title">${task.title}</div>
+            <div class="task-date">${task.createdAt}</div>
+          </div>
+        `;
+
+        const checkbox = item.querySelector(".task-checkbox");
+        checkbox.addEventListener("change", () => {
+          task.completed = checkbox.checked;
+          saveTasks();
+          renderTasks();
+        });
+
+        if (task.completed) {
+          completedList.appendChild(item);
+        } else {
+          list.appendChild(item);
+        }
+      });
+      
+      // Update counters
+      activeCount.textContent = activeTasks;
+      completedCount.textContent = completedTasks;
+    }
+
+    // Save tasks to localStorage
+    function saveTasks() {
+      localStorage.setItem("TASKS", JSON.stringify(tasks));
+    }
+
+    // Initial render
+    renderTasks();
+  </script>
+</body>
 </html>
